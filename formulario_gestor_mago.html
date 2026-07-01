@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gestor Mago — Formulário de Onboarding</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #111; font-family: Arial, sans-serif; padding: 2rem 1rem; min-height: 100vh; }
+.wrap { max-width: 600px; margin: 0 auto; }
+.header { background: #1a1a1a; border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; border-left: 4px solid #cc0000; }
+.logo { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+.title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.sub { font-size: 14px; color: #aaa; }
+.section { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+.section-title { font-size: 11px; font-weight: 700; color: #cc0000; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+label.main { display: block; font-size: 14px; font-weight: 700; color: #e0e0e0; margin-bottom: 6px; }
+label.main span { color: #cc0000; }
+.hint { font-size: 12px; color: #666; margin-top: 4px; }
+input[type="text"], input[type="email"], textarea {
+  width: 100%; padding: 10px 14px; background: #111; border: 1px solid #333;
+  border-radius: 8px; color: #e0e0e0; font-size: 14px; font-family: Arial, sans-serif;
+  transition: border-color 0.15s;
+}
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  outline: none; border-color: #cc0000;
+}
+textarea { resize: vertical; min-height: 80px; }
+.radio-group { display: flex; flex-direction: column; gap: 8px; }
+.radio-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid #2a2a2a; border-radius: 8px; cursor: pointer; transition: border-color 0.15s; }
+.radio-item:hover { border-color: #cc0000; }
+.radio-item input[type="radio"] { accent-color: #cc0000; width: 16px; height: 16px; flex-shrink: 0; }
+.radio-item span { font-size: 14px; color: #e0e0e0; }
+.btn { width: 100%; padding: 14px; background: #cc0000; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 1rem; letter-spacing: 0.5px; transition: background 0.15s; }
+.btn:hover { background: #aa0000; }
+.footer { text-align: center; font-size: 12px; color: #555; margin-top: 1rem; padding-bottom: 2rem; }
+.success { display: none; background: #1a1a1a; border: 1px solid #cc0000; border-radius: 12px; padding: 2rem; text-align: center; margin-top: 1rem; }
+.success h2 { color: #fff; font-size: 20px; margin-bottom: 8px; }
+.success p { color: #aaa; font-size: 14px; }
+.success .check { font-size: 48px; margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="logo">Curso Gestor Mago</div>
+    <div class="title">Bem-vindo à turma fundadora</div>
+    <div class="sub">Preencha as informações abaixo para personalizar sua experiência no curso.</div>
+  </div>
+
+  <form id="form" onsubmit="enviar(event)">
+
+    <div class="section">
+      <div class="section-title">Sobre você</div>
+
+      <div class="field">
+        <label class="main">Nome completo <span>*</span></label>
+        <input type="text" name="nome" placeholder="Seu nome" required />
+      </div>
+
+      <div class="field">
+        <label class="main">E-mail <span>*</span></label>
+        <input type="email" name="email" placeholder="seuemail@email.com" required />
+        <div class="hint">Será usado para liberar seu acesso ao curso.</div>
+      </div>
+
+      <div class="field">
+        <label class="main">WhatsApp <span>*</span></label>
+        <input type="text" name="whatsapp" placeholder="(61) 99999-9999" required />
+      </div>
+
+      <div class="field">
+        <label class="main">Qual é a sua ocupação atual? <span>*</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="ocupacao" value="Gestor de tráfego" required /><span>Gestor de tráfego</span></label>
+          <label class="radio-item"><input type="radio" name="ocupacao" value="Dono de restaurante" /><span>Dono de restaurante</span></label>
+          <label class="radio-item"><input type="radio" name="ocupacao" value="Profissional de marketing" /><span>Profissional de marketing</span></label>
+          <label class="radio-item"><input type="radio" name="ocupacao" value="Outra área" /><span>Outra área</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Experiência com iFood</div>
+
+      <div class="field">
+        <label class="main">Você já tem experiência com iFood? <span>*</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="experiencia" value="Nunca mexi na plataforma" required /><span>Nunca mexi na plataforma</span></label>
+          <label class="radio-item"><input type="radio" name="experiencia" value="Já mexi, mas superficialmente" /><span>Já mexi, mas superficialmente</span></label>
+          <label class="radio-item"><input type="radio" name="experiencia" value="Já geri alguma conta informalmente" /><span>Já geri alguma conta informalmente</span></label>
+          <label class="radio-item"><input type="radio" name="experiencia" value="Já tenho clientes como gestor" /><span>Já tenho clientes como gestor</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="main">Você tem clientes de restaurante na sua carteira hoje?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="clientes" value="Sim, já tenho clientes do ramo" /><span>Sim, já tenho clientes do ramo</span></label>
+          <label class="radio-item"><input type="radio" name="clientes" value="Não, mas tenho prospects" /><span>Não, mas tenho prospects</span></label>
+          <label class="radio-item"><input type="radio" name="clientes" value="Não tenho ainda" /><span>Não tenho ainda</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Seus objetivos</div>
+
+      <div class="field">
+        <label class="main">Qual é o seu principal objetivo com o curso? <span>*</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="objetivo" value="Atuar como gestor em paralelo ao tráfego" required /><span>Atuar como gestor em paralelo ao tráfego</span></label>
+          <label class="radio-item"><input type="radio" name="objetivo" value="Migrar totalmente para gestão de iFood" /><span>Migrar totalmente para gestão de iFood</span></label>
+          <label class="radio-item"><input type="radio" name="objetivo" value="Oferecer iFood como serviço adicional" /><span>Oferecer iFood como serviço adicional</span></label>
+          <label class="radio-item"><input type="radio" name="objetivo" value="Montar uma equipe de gestão" /><span>Montar uma equipe de gestão</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="main">Quantos clientes você quer ter como gestor nos próximos 6 meses?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="meta" value="1 a 3 clientes" /><span>1 a 3 clientes</span></label>
+          <label class="radio-item"><input type="radio" name="meta" value="4 a 10 clientes" /><span>4 a 10 clientes</span></label>
+          <label class="radio-item"><input type="radio" name="meta" value="Mais de 10 clientes" /><span>Mais de 10 clientes</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="main">Tem algum nicho ou região em mente para prospectar?</label>
+        <textarea name="nicho" placeholder="Ex: hamburgueria em Brasília, pizzarias no DF..."></textarea>
+      </div>
+
+      <div class="field">
+        <label class="main">O que você espera tirar da call de 45 min com o Gabriel?</label>
+        <textarea name="call" placeholder="Compartilhe suas principais dúvidas ou o que quer aprofundar..."></textarea>
+      </div>
+    </div>
+
+    <button class="btn" type="submit">Enviar respostas</button>
+  </form>
+
+  <div class="success" id="success">
+    <div class="check">✅</div>
+    <h2>Respostas enviadas!</h2>
+    <p>Em breve você receberá o acesso ao curso no e-mail cadastrado.</p>
+  </div>
+
+  <div class="footer">Magos Gestão Estratégica · @magodoifood</div>
+</div>
+
+<script>
+function enviar(e) {
+  e.preventDefault();
+  document.getElementById('form').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+}
+</script>
+</body>
+</html>
