@@ -35,6 +35,7 @@ textarea { resize: vertical; min-height: 80px; }
 .radio-item span { font-size: 14px; color: #e0e0e0; }
 .btn { width: 100%; padding: 14px; background: #cc0000; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 1rem; letter-spacing: 0.5px; transition: background 0.15s; }
 .btn:hover { background: #aa0000; }
+.btn:disabled { background: #666; cursor: not-allowed; }
 .footer { text-align: center; font-size: 12px; color: #555; margin-top: 1rem; padding-bottom: 2rem; }
 .success { display: none; background: #1a1a1a; border: 1px solid #cc0000; border-radius: 12px; padding: 2rem; text-align: center; margin-top: 1rem; }
 .success h2 { color: #fff; font-size: 20px; margin-bottom: 8px; }
@@ -139,7 +140,7 @@ textarea { resize: vertical; min-height: 80px; }
       </div>
     </div>
 
-    <button class="btn" type="submit">Enviar respostas</button>
+    <button class="btn" type="submit" id="btn">Enviar respostas</button>
   </form>
 
   <div class="success" id="success">
@@ -152,10 +153,40 @@ textarea { resize: vertical; min-height: 80px; }
 </div>
 
 <script>
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySuvzjM87d56VisH8Zf16UjYrNuO8t6-3vE8HkwF4vkbywdSvZzoyUYT5vXLfiyx9F/exec';
+
 function enviar(e) {
   e.preventDefault();
-  document.getElementById('form').style.display = 'none';
-  document.getElementById('success').style.display = 'block';
+  var btn = document.getElementById('btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var form = document.getElementById('form');
+  var data = {
+    nome: form.nome.value,
+    email: form.email.value,
+    whatsapp: form.whatsapp.value,
+    ocupacao: form.ocupacao.value,
+    experiencia: form.experiencia.value,
+    clientes: form.clientes ? form.clientes.value : '',
+    objetivo: form.objetivo.value,
+    meta: form.meta ? form.meta.value : '',
+    nicho: form.nicho.value,
+    call: form.call.value
+  };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(data)
+  })
+  .then(function() {
+    form.style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  })
+  .catch(function() {
+    form.style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  });
 }
 </script>
 </body>
